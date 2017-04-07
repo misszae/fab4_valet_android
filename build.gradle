@@ -14,9 +14,6 @@ repositories {
 
 apply plugin: 'com.android.application'
 
-dependencies {
-    testCompile 'junit:junit:4.12'
-}
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
@@ -37,6 +34,7 @@ android {
 }
 
 dependencies {
+    testCompile 'junit:junit:4.12'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -45,4 +43,5 @@ dependencies {
     compile 'com.android.support:design:25.2.0'
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
     compile 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
+
 }
