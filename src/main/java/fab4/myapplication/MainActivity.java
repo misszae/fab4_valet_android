@@ -1,5 +1,10 @@
 package fab4.myapplication;
 
+import com.cloudant.client.api.CloudantClient;
+import com.cloudant.client.api.ClientBuilder;
+import com.cloudant.client.api.Database;
+import com.cloudant.client.api.Search;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +20,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    CloudantClient client = ClientBuilder.account("1265081iot613_fab4")
+                           .username("76169809-b023-49b2-a8ba-6cfde4e69f62-bluemix")
+                           .password("0f1a7bdf64ba8cb806ed20d08427ad92f282f86086f07e0c255a6127b6ba280d")
+                           .build();
+    //CloudantClient client = ClientBuilder.bluemix(System.getenv("VCAP_SERVICES")).build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +45,19 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //msg.Connect();
+
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+            client.getAllDbs();
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            client.getAllDbs();
+
         }
     }
 
@@ -62,6 +77,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            client.getAllDbs();
             return true;
         }
 
@@ -79,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            client.getAllDbs();// supposed to show a list of all databases on cloud in json format
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -96,6 +113,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void btnFetch_OnClick(View view) {
-
+        client.createDB("helloWorld");//supposed to create new database title helloWorld
     }
 }
